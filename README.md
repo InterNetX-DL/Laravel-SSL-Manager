@@ -60,7 +60,6 @@ Ephenodrom\LaravelSslManagerServiceProvider::class
 In order to use the implementation, different configurations have to be made beforehand. Add the following keys to your .env file.
 
 | Key     | Type | Description |
-| --------|---------|-------|-------|
 | SSL_MANAGER_API_URL  | url   | The url of the API backend. |
 | SSL_MANAGER_API_USER | string | The API user.|
 | SSL_MANAGER_API_PASSWORD | string | The password of the user. |
