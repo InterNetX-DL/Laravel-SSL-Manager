@@ -1,0 +1,27 @@
+{
+    "name": "ephenodrom/laravel-ssl-manager",
+    "description": "Lorem Ipsum",
+    "type": "laravel-package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Linsenmeier",
+            "email": "daniel@ephenodrom.de"
+        }
+    ],
+    "version": "1.0.0",
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Ephenodrom\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ephenodrom\\LaravelSslManagerServiceProvider"
+            ]
+        }
+    }
+}
