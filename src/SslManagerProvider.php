@@ -60,10 +60,10 @@ class SslManagerProvider {
      * @param $demo
      * @return array
      */
-    public function sslContactCreate($contact, $demo = false) {
+    public function sslContactCreate($contact, $demo = false, $parameter = null) {
         try{
             $json = json_encode($contact);
-            $response = $this->send("/sslcontact", "POST", $json);
+            $response = $this->send("/sslcontact", "POST", $json, $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not create contact.");
@@ -79,10 +79,10 @@ class SslManagerProvider {
      * @param $demo
      * @return array
      */
-    public function sslContactUpdate($id, $contact, $demo = false) {
+    public function sslContactUpdate($id, $contact, $demo = false, $parameter = null) {
         try{
             $json = json_encode($contact);
-            $response = $this->send("/sslcontact/$id", "PUT", $json);
+            $response = $this->send("/sslcontact/$id", "PUT", $json, $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not update contact.");
@@ -97,9 +97,9 @@ class SslManagerProvider {
      * @param $demo
      * @return array
      */
-    public function sslContactDelete($id, $demo = false) {
+    public function sslContactDelete($id, $demo = false, $parameter = null) {
         try{
-            $response = $this->send("/sslcontact/".$id, "DELETE");
+            $response = $this->send("/sslcontact/".$id, "DELETE", $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not delete contact with id $id.");
@@ -114,9 +114,9 @@ class SslManagerProvider {
      * @param $demo
      * @return array
      */
-    public function sslContactInfo($id, $demo = false) {
+    public function sslContactInfo($id, $demo = false, $parameter = null) {
         try{
-            $response = $this->send("/sslcontact/".$id, "GET");
+            $response = $this->send("/sslcontact/".$id, "GET", $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not find contact with id $id.");
@@ -132,7 +132,7 @@ class SslManagerProvider {
      * @param $order
      * @return array
      */
-    public function sslContactList($view, $filters, $order) {
+    public function sslContactList($view = null, $filters = null, $order = null, $demo = false, $parameter = null) {
         try{
             $ar = [
                 'view' => $view,
@@ -140,7 +140,7 @@ class SslManagerProvider {
                 'order' => $order
             ];
             $json = json_encode($ar);
-            $response = $this->send("/sslcontact/_search", "POST", $json);
+            $response = $this->send("/sslcontact/_search", "POST", $json, $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not create contact.");
@@ -156,10 +156,10 @@ class SslManagerProvider {
      * @param $demo
      * @return array
      */
-    public function certificateCreate($data, $demo = false) {
+    public function certificateCreate($data, $demo = false, $parameter = null) {
         try{
             $json = json_encode($data);
-            $response = $this->send("/certificate", "POST", $json);
+            $response = $this->send("/certificate", "POST", $json, $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not create certificate.");
@@ -176,10 +176,10 @@ class SslManagerProvider {
      * @param $demo
      * @return array
      */
-    public function certificateReissue($id, $data, $demo = false) {
+    public function certificateReissue($id, $data, $demo = false, $parameter = null) {
         try{
             $json = json_encode($data);
-            $response = $this->send("/certificate/".$id, "PUT", $json);
+            $response = $this->send("/certificate/".$id, "PUT", $json, $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not reissue certificate with id $id.");
@@ -196,9 +196,9 @@ class SslManagerProvider {
      * @param $demo
      * @return array
      */
-    public function certificateDelete($id, $demo = false) {
+    public function certificateDelete($id, $demo = false, $parameter = null) {
         try{
-            $response = $this->send("/certificate/".$id, "DELETE");
+            $response = $this->send("/certificate/".$id, "DELETE", $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not delete certificate with id $id.");
@@ -214,9 +214,9 @@ class SslManagerProvider {
      * @param $demo
      * @return array
      */
-    public function certificateInfo($id, $demo = false) {
+    public function certificateInfo($id, $demo = false, $parameter = null) {
         try{
-            $response = $this->send("/certificate/".$id, "GET");
+            $response = $this->send("/certificate/".$id, "GET", $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not request certificate data with id $id.");
@@ -233,7 +233,7 @@ class SslManagerProvider {
      * @param $order
      * @return array
      */
-    public function certificateList($view = null, $filters = null, $order = null) {
+    public function certificateList($view = null, $filters = null, $order = null, $demo = null, $parameter = null) {
         try{
             $ar = [
                 'view' => $view,
@@ -241,7 +241,7 @@ class SslManagerProvider {
                 'order' => $order
             ];
             $json = json_encode($ar);
-            $response = $this->send("/certificate/_search", "POST", $json);
+            $response = $this->send("/certificate/_search", "POST", $json, $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not list certificates.");
@@ -258,10 +258,10 @@ class SslManagerProvider {
      * @param $demo
      * @return array
      */
-    public function certificateRenew($id, $data, $demo = false) {
+    public function certificateRenew($id, $data, $demo = false, $parameter = null) {
         try{
             $json = json_encode($data);
-            $response = $this->send("/certificate/$id/renew", "PUT", $json);
+            $response = $this->send("/certificate/$id/renew", "PUT", $json, $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not renew certificate with id $id.");
@@ -279,10 +279,10 @@ class SslManagerProvider {
      * @param $demo
      * @return array
      */
-    public function certificateRevoke($id, $data, $demo = false) {
+    public function certificateRevoke($id, $data, $demo = false, $parameter = null) {
         try{
             $json = json_encode($data);
-            $response = $this->send("/certificate/$id/revoke", "POST", $json);
+            $response = $this->send("/certificate/$id/revoke", "POST", $json, $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not revoke certificate with id $id.");
@@ -300,10 +300,10 @@ class SslManagerProvider {
      * @param $demo
      * @return array
      */
-    public function certificatePrepareOrder($data, $demo = false) {
+    public function certificatePrepareOrder($data, $demo = false, $parameter = null) {
         try{
             $json = json_encode($data);
-            $response = $this->send("/certificate/prepareOrder", "POST", $json);
+            $response = $this->send("/certificate/prepareOrder", "POST", $json, $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not prepare order.");
@@ -318,10 +318,10 @@ class SslManagerProvider {
      * @param $certificate
      * @return array
      */
-    public function certificateCommentUpdate($id, $certificate) {
+    public function certificateCommentUpdate($id, $certificate, $demo = false, $parameter = null) {
         try{
             $json = json_encode($certificate);
-            $response = $this->send("/certificate/$id/comment", "PUT", $json);
+            $response = $this->send("/certificate/$id/comment", "PUT", $json, $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not update comment for certificate with id $id.");
@@ -335,9 +335,9 @@ class SslManagerProvider {
      * @param $id
      * @return array
      */
-    public function jobInfo($id) {
+    public function jobInfo($id, $demo = false, $parameter = null) {
         try{
-            $response = $this->send("/job/".$id, "GET");
+            $response = $this->send("/job/".$id, "GET", $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("CertificateJobInfo failed.");
@@ -354,7 +354,7 @@ class SslManagerProvider {
      * @param $order
      * @return array
      */
-    public function jobList($view = null, $filters = null, $order = null) {
+    public function jobList($view = null, $filters = null, $order = null, $demo = false, $parameter = null) {
         try{
             $ar = [
                 'view' => $view,
@@ -362,7 +362,7 @@ class SslManagerProvider {
                 'order' => $order
             ];
             $json = json_encode($ar);
-            $response = $this->send("/job/_search", "POST", $json);
+            $response = $this->send("/job/_search", "POST", $json, $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not list certificate jobs.");
@@ -376,9 +376,9 @@ class SslManagerProvider {
      * @param $id
      * @return array
      */
-    public function jobCancel($id) {
+    public function jobCancel($id, $demo = false, $parameter = null) {
         try{
-            $response = $this->send("/job/$id/cancel", "PUT");
+            $response = $this->send("/job/$id/cancel", "PUT", $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not cancel the certificate job.");
@@ -392,9 +392,9 @@ class SslManagerProvider {
      * @param CertificateJob $job
      * @return array
      */
-    public function jobConfirm($id) {
+    public function jobConfirm($id, $demo = false, $parameter = null) {
         try{
-            $response = $this->send("/job/$id/confirm", "PUT");
+            $response = $this->send("/job/$id/confirm", "PUT", $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not confirm the certificate job.");
@@ -408,9 +408,9 @@ class SslManagerProvider {
      * @param CertificateJob $job
      * @return array
      */
-    public function jobReject($id) {
+    public function jobReject($id, $demo = false, $parameter = null) {
         try{
-            $response = $this->send("/job/$id/reject", "PUT");
+            $response = $this->send("/job/$id/reject", "PUT", $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not reject the certificate job.");
@@ -424,9 +424,9 @@ class SslManagerProvider {
      * @param CertificateJob $job
      * @return array
      */
-    public function jobHistoryInfo($id) {
+    public function jobHistoryInfo($id, $demo = false, $parameter = null) {
         try{
-            $response = $this->send("/job/history/$id", "GET");
+            $response = $this->send("/job/history/$id", "GET", $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not find certificate histoy job.");
@@ -443,7 +443,7 @@ class SslManagerProvider {
      * @param $order
      * @return array
      */
-    public function jobHistoryList($view, $where, $order) {
+    public function jobHistoryList($view = null, $where = null, $order = null, $demo = false, $parameter = null) {
         try{
             $ar = [
                 'view' => $view,
@@ -451,7 +451,7 @@ class SslManagerProvider {
                 'order' => $order
             ];
             $json = json_encode($ar);
-            $response = $this->send("/job/history/_search", "POST", $json);
+            $response = $this->send("/job/history/_search", "POST", $json, $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not list certificate history jobs.");
@@ -464,9 +464,9 @@ class SslManagerProvider {
      *
      * @return array
      */
-    public function pollInfo() {
+    public function pollInfo($demo = false, $parameter = null) {
         try{
-            $response = $this->send("/poll", "GET");
+            $response = $this->send("/poll", "GET", $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("PollInfo failed.");
@@ -480,9 +480,9 @@ class SslManagerProvider {
      * @param $id
      * @return array
      */
-    public function pollConfirm($id) {
+    public function pollConfirm($id, $demo = false, $parameter = null) {
         try{
-            $response = $this->send("/poll/".$id, "PUT");
+            $response = $this->send("/poll/".$id, "PUT", $demo, $parameter);
             return $response;
         }catch(RestExecutionException $e){
             Log::info("Could not confirm poll message with id $id.");
@@ -497,14 +497,28 @@ class SslManagerProvider {
      * @param $body
      * @return array
      */
-    private function send($path, $method, $body = null){
+    private function send($path, $method, $body = null, $demo = null, $parameter =  null){
         $this->sessionToken = Cache::pull('SSL_MANAGER_SESSION_TOKEN');
         if($this->sessionToken == null){
             Log::info("No session token found, create one.");
             $this->authSessionCreate();
         }
          // Setup curl
-        $ch = curl_init($this->url.$path);
+        $finalUrl = $this->url.$path;
+        if($parameter != null){
+          if(is_array($parameter)){
+            $first = true;
+            foreach ($parameter as $p) {
+              if($first){
+                $finalUrl= $finalUrl."?";
+                $first = false;
+                $finalUrl= $finalUrl.$p['name']."=".$p['value'];
+              }
+              $finalUrl= $finalUrl."&".$p['name']."=".$p['value'];
+            }
+          }
+        }
+        $ch = curl_init($finalUrl);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
